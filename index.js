@@ -4,7 +4,9 @@ require('dotenv').config()
 const userRoutes = require ('./routes/userRoutes')
 const authRoutes = require ('./routes/authRoutes')
 const authMiddleware = require("./middleware/authMiddleware")
-const roleMiddleware = require("./middleware/roleMiddware")
+const roleMiddleware = require("./middleware/roleMiddleware")
+const imovelRoutes = require('./routes/imovelRoutes');
+const locacaoRoutes = require('./routes/locacaoRoutes');
 
 const app = express()
 const routes = require('./routes/routes')
@@ -16,6 +18,8 @@ app.use(express.json())
 app.use('/', routes)
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
+app.use('/imoveis', imovelRoutes);
+app.use('/locacoes', locacaoRoutes);
 
 app.get('/perfil', authMiddleware, async (req, res) => {
     res.json({message: `Bem Vindo usuário ${req.usuario.nome}`})

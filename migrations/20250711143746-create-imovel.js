@@ -2,30 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('imoveis', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nome: {
+      titulo: {
         type: Sequelize.STRING
       },
-      cpf: {
+      descricao: {
+        type: Sequelize.TEXT
+      },
+      endereco: {
         type: Sequelize.STRING
       },
-      email:{
-        type: Sequelize.STRING
+      preco_noite: {
+        type: Sequelize.DECIMAL
       },
-      senha: {
-        type: Sequelize.STRING
+      usuario_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      tipo_usuario: {
-        type: Sequelize.ENUM('locador', 'locatario'),
-        allowNull:false
-      },
-      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -37,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Imovels');
   }
 };
